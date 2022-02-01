@@ -1,0 +1,29 @@
+--- 
+!ruby/object:IssueSync::Config
+services:
+  - !ruby/object:IssueSync::ServiceConfig
+    type: jira
+    name: jira-main
+    credentials:
+      jira_username: <%= ENV["JIRA_USERNAME"] %>
+      jira_password: <%= ENV["JIRA_API_TOKEN"] %>
+      jira_url: <%= ENV["JIRA_URL"] %>
+  - !ruby/object:IssueSync::ServiceConfig
+    type: github
+    name: github-main
+    credentials:
+      github_token: <%= ENV["GITHUB_PAT"] %>
+
+repositories: 
+- !ruby/object:IssueSync::RepositoryConfig
+  name: custom_name
+  source:
+    !ruby/object:IssueSync::RepositorySource
+    type: github
+    name: github-main
+    path: custom-org/custom-name
+  target: 
+    !ruby/object:IssueSync::RepositoryTarget
+    type: jira
+    name: jira-main
+    path: test_project
