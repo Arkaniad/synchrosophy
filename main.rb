@@ -42,7 +42,8 @@ module IssueSync
         @log.debug "repo: #{repo.full_name} - issues: #{issues.length}"
 
         issues.each do |issue|
-          @log.debug "- issue #{issue.number}: #{issue.title}"
+          tags = issue.labels.map{ |label| label.name }.join(', ')
+          @log.debug "- issue #{issue.number}: #{issue.title} #{"(tags: " + tags + ")" if not tags.empty?}"
         end
 
       end
